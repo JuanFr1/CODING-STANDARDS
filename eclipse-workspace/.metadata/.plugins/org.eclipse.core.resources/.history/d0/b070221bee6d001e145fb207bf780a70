@@ -1,0 +1,65 @@
+import java.util.Scanner;
+
+
+public class main {
+	
+	private static final int BASE_COST = 1000;
+    private static final int PARIS_COST = 500;
+    private static final int NYC_COST = 600;
+    private static final double GROUP_DISCOUNT_10 = 0.9;
+    private static final double GROUP_DISCOUNT_20 = 0.8;
+    private static final int PENALTY_FEE = 200;
+    private static final int MAX_GROUP_SIZE = 80;
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scanner = new Scanner(System.in);
+
+        // Get the user input.
+        System.out.println("Enter the destination of the vacation:");
+        String destination = scanner.nextLine();
+        System.out.println("Enter the number of travelers:");
+        int numTravelers = scanner.nextInt();
+        System.out.println("Enter the duration of the vacation in days:");
+        int duration = scanner.nextInt();
+
+        // Validate the input.
+        if (numTravelers < 2 || numTravelers > MAX_GROUP_SIZE) {
+            System.out.println("Invalid number of travelers.");
+            return;
+        }
+        if (duration < 1) {
+            System.out.println("Invalid duration of vacation.");
+            return;
+        }
+
+        // Calculate the total cost.
+        double totalCost = BASE_COST;
+        // Add the destination cost.
+        if (destination.equals("Paris")) {
+            totalCost += PARIS_COST;
+            System.out.println(totalCost); //
+        } else if (destination.equals("New York City")) {
+            totalCost += NYC_COST;
+        }
+        
+        // Apply the group discount.
+        if (numTravelers > 4 && numTravelers < 10) {
+            totalCost *= GROUP_DISCOUNT_10;
+        } else if (numTravelers > 10) {
+            totalCost *= GROUP_DISCOUNT_20;
+        }
+        // Apply the penalty fee.
+        if (duration < 7) {
+            totalCost += PENALTY_FEE;
+        }
+        // Subtract the promotion amount if applicable.
+        if (duration > 30 || numTravelers == 2) {
+            totalCost -= 200;
+        }
+
+        // Display the total cost.
+        System.out.println("The total cost of the vacation package is: $" + totalCost);
+	}
+
+}
